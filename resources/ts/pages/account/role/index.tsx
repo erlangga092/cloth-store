@@ -1,3 +1,4 @@
+import { DeleteAct } from "@/components/delete-act";
 import { Pagination } from "@/components/pagination";
 import { Search } from "@/components/search";
 import LayoutAccount from "@/layouts/account";
@@ -74,7 +75,7 @@ const AccountRolePage = ({ roles }: { roles: RoleWithPaginationType }) => {
                             {role.permissions.map(
                               (permission: PermissionType, index: number) => (
                                 <span
-                                  className="btn btn-success btn-sm border-0 ms-2 mb-2"
+                                  className="badge bg-success p-2 rounded-pill border-0 ms-2 mb-2"
                                   key={index}
                                 >
                                   {permission.name}
@@ -92,9 +93,7 @@ const AccountRolePage = ({ roles }: { roles: RoleWithPaginationType }) => {
                               </Link>
                             )}
                             {hasAnyPermission(["roles.delete"]) && (
-                              <button className="btn btn-danger btn-sm">
-                                <i className="fa fa-trash"></i>
-                              </button>
+                              <DeleteAct URL="/account/roles" id={role.id} />
                             )}
                           </td>
                         </tr>

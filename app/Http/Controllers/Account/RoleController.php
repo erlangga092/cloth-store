@@ -13,7 +13,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::query()->when(request()->q, function ($rows) {
-            return $rows->where('name', 'like', '%' . request()->q . '%');
+            return $rows->where('name', 'ilike', '%' . request()->q . '%');
         })->with('permissions')->latest()->paginate(10);
 
         $roles->appends(['q' => request()->q]);
