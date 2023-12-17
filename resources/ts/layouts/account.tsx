@@ -1,7 +1,7 @@
 import { Sidebar } from "@/components/sidebar";
 import { AuthProps } from "@/types/auth";
 import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 import { NavDropdown } from "react-bootstrap";
 
@@ -9,6 +9,7 @@ const LayoutAccount = ({ children }: { children: React.ReactNode }) => {
   const { auth } = usePage<{ auth: AuthProps }>().props;
   const [sidebarToggle, setSidebarToggle] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
+  const form = useForm();
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +31,7 @@ const LayoutAccount = ({ children }: { children: React.ReactNode }) => {
 
   function logoutHandler(e: React.SyntheticEvent) {
     e.preventDefault();
-    Inertia.post("/logout");
+    form.post("/logout");
   }
 
   return (

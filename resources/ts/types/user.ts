@@ -1,24 +1,26 @@
 import { PaginationLinkType } from "./pagination";
+import { RoleType } from "./role";
 
-export interface CategoryType {
+export interface UserType {
   id: number;
   name: string;
-  slug: string;
-  image: string;
+  email: string;
+  email_verified_at: string | null;
+  roles: Array<RoleType>;
   created_at: string;
   updated_at: string;
 }
 
-interface CategoryPaginationLinkType extends PaginationLinkType {}
+interface UserPaginationLinkType extends PaginationLinkType {}
 
-export interface CategoryWithPaginationType {
+export interface UserWithPaginationType {
   current_page: number;
-  data: CategoryType[];
+  data: UserType[];
   first_page_url: string;
   from: number;
   last_page: number;
   last_page_url: string;
-  links: CategoryPaginationLinkType[];
+  links: UserPaginationLinkType[];
   next_page_url: string | null;
   path: string;
   per_page: number;

@@ -3,8 +3,8 @@ import React from "react";
 import Swal from "sweetalert2";
 
 export function DeleteAct({ URL, id }: { URL: string; id: number }) {
-  const form = useForm();
   const DEFAULT_TIMER: number = 1500;
+  const form = useForm();
 
   async function destroy() {
     try {
