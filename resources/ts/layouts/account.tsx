@@ -1,8 +1,7 @@
 import { Sidebar } from "@/components/sidebar";
 import { AuthProps } from "@/types/auth";
-import { Inertia } from "@inertiajs/inertia";
 import { useForm, usePage } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { NavDropdown } from "react-bootstrap";
 
 const LayoutAccount = ({ children }: { children: React.ReactNode }) => {
@@ -72,7 +71,9 @@ const LayoutAccount = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
         </nav>
-        <div className="container-fluid">{children}</div>
+        <div className="container-fluid">
+          <Suspense fallback="Loading...">{children}</Suspense>
+        </div>
       </div>
     </div>
   );

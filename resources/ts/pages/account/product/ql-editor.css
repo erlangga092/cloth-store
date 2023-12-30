@@ -1,0 +1,10 @@
+.ql-editor {
+    font-size: medium;
+    font-family: 'Quicksand', sans-serif;
+    /* Replace 'YourFont' with your desired font */
+    height: auto !important;
+}
+
+.ql-container {
+    height: auto !important;
+}

@@ -14,7 +14,7 @@ export default function Header() {
                   className="d-flex align-items-center col-md-12 mb-2 mb-md-0 text-white text-decoration-none"
                 >
                   <img src="/assets/images/logo.png" width="50" />
-                  <h5 className="mb-0">
+                  <h5>
                     <strong>Geek</strong>Store
                   </h5>
                 </Link>

@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'description' => 'required',
             'weight' => 'required',
             'product_sizes' => 'required|array|min:2'
