@@ -8,7 +8,7 @@ export default function Header() {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-8">
-              <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1">
+              <section className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1">
                 <Link
                   href="/"
                   className="d-flex align-items-center col-md-12 mb-2 mb-md-0 text-white text-decoration-none"
@@ -18,7 +18,7 @@ export default function Header() {
                     <strong>Geek</strong>Store
                   </h5>
                 </Link>
-              </header>
+              </section>
             </div>
           </div>
         </div>

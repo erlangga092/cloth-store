@@ -30,7 +30,7 @@ const AccounCategoryCreatePage = () => {
   return (
     <>
       <Head>
-        <title>Create Color</title>
+        <title>New Color | Marketplace</title>
       </Head>
       <LayoutAccount>
         <div className="row mt-4">

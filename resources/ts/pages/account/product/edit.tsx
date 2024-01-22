@@ -1,5 +1,6 @@
 import LayoutAccount from "@/layouts/account";
 import { CategoryType } from "@/types/category";
+import { ProductWithSizeType } from "@/types/product";
 import { Head, useForm } from "@inertiajs/react";
 import React, { FormEvent } from "react";
 import ReactQuill from "react-quill";
@@ -7,11 +8,20 @@ import "react-quill/dist/quill.snow.css";
 import Swal from "sweetalert2";
 import "./ql-editor.css";
 
-const AccountProductCreatePage = ({
+const AccountProductEditPage = ({
   categories,
+  product,
 }: {
   categories: Array<CategoryType>;
+  product: ProductWithSizeType;
 }) => {
+  const productSizeDefault = product.product_sizes.map((v) => {
+    return {
+      size: v.size,
+      price: v.price,
+    };
+  });
+
   const { data, setData, errors, processing, post } = useForm<{
     title: string;
     category_id: number;
@@ -22,16 +32,11 @@ const AccountProductCreatePage = ({
       price: number;
     }>;
   }>({
-    title: "",
-    category_id: 0,
-    description: "",
-    weight: null,
-    product_sizes: [
-      {
-        size: "",
-        price: 0,
-      },
-    ],
+    title: product.title,
+    category_id: product.category_id,
+    description: product.description,
+    weight: product.weight,
+    product_sizes: productSizeDefault,
   });
 
   function submitProduct(e: FormEvent<HTMLFormElement>) {
@@ -52,7 +57,7 @@ const AccountProductCreatePage = ({
   return (
     <>
       <Head>
-        <title>New Product | Marketplacet</title>
+        <title>Edit Product | Marketplace</title>
       </Head>
       <LayoutAccount>
         <div className="row mt-4">
@@ -96,7 +101,11 @@ const AccountProductCreatePage = ({
                           <option value="">--select category--</option>
                           {categories.map(
                             (category: CategoryType, index: number) => (
-                              <option value={category.id} key={category.id}>
+                              <option
+                                value={category.id}
+                                key={category.id}
+                                selected={category.id === data.category_id}
+                              >
                                 {category.name}
                               </option>
                             )
@@ -222,11 +231,15 @@ const AccountProductCreatePage = ({
                         ) : null}
                       </div>
                     ))}
-                    {errors.product_sizes && (
-                      <div className="alert alert-danger">
-                        {errors.product_sizes}
-                      </div>
-                    )}
+
+                    <div className="col-md-12">
+                      {errors.product_sizes && (
+                        <div className="alert alert-danger">
+                          {errors.product_sizes}
+                        </div>
+                      )}
+                    </div>
+
                     <div className="col-md-12">
                       <button
                         className="btn btn-primary btn-md border-0 shadow-sm"
@@ -268,4 +281,4 @@ const AccountProductCreatePage = ({
   );
 };
 
-export default AccountProductCreatePage;
+export default AccountProductEditPage;

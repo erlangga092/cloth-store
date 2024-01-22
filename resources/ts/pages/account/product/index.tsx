@@ -15,7 +15,7 @@ const AccountProductPage = ({
   return (
     <>
       <Head>
-        <title>Product</title>
+        <title>Product | Marketplace</title>
       </Head>
       <LayoutAccount>
         <div className="row mt-5">
@@ -66,41 +66,50 @@ const AccountProductPage = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {products.data.map(
-                        (product: ProductType, index: number) => (
-                          <tr key={index}>
-                            <td className="text-center">
-                              {++index +
-                                (products.current_page - 1) * products.per_page}
-                            </td>
-                            <td>{product.title}</td>
-                            <td>{product.category.name}</td>
-                            <td className="text-center">
-                              {hasAnyPermission(["products.show"]) && (
-                                <Link
-                                  href={`/account/products/${product.id}`}
-                                  className="btn btn-dark btn-sm me-2"
-                                >
-                                  <i className="fa fa-info-circle"></i>
-                                </Link>
-                              )}
-                              {hasAnyPermission(["products.edit"]) && (
-                                <Link
-                                  href={`/account/products/${product.id}/edit`}
-                                  className="btn btn-primary btn-sm me-2"
-                                >
-                                  <i className="fa fa-pencil-alt"></i>
-                                </Link>
-                              )}
-                              {hasAnyPermission(["products.delete"]) && (
-                                <DeleteAct
-                                  URL={"/account/products"}
-                                  id={product.id}
-                                />
-                              )}
-                            </td>
-                          </tr>
+                      {products.data.length ? (
+                        products.data.map(
+                          (product: ProductType, index: number) => (
+                            <tr key={index}>
+                              <td className="text-center">
+                                {++index +
+                                  (products.current_page - 1) *
+                                    products.per_page}
+                              </td>
+                              <td>{product.title}</td>
+                              <td>{product.category.name}</td>
+                              <td className="text-center">
+                                {hasAnyPermission(["products.show"]) && (
+                                  <Link
+                                    href={`/account/products/${product.id}`}
+                                    className="btn btn-dark btn-sm me-2"
+                                  >
+                                    <i className="fa fa-info-circle"></i>
+                                  </Link>
+                                )}
+                                {hasAnyPermission(["products.edit"]) && (
+                                  <Link
+                                    href={`/account/products/${product.id}/edit`}
+                                    className="btn btn-primary btn-sm me-2"
+                                  >
+                                    <i className="fa fa-pencil-alt"></i>
+                                  </Link>
+                                )}
+                                {hasAnyPermission(["products.delete"]) && (
+                                  <DeleteAct
+                                    URL={"/account/products"}
+                                    id={product.id}
+                                  />
+                                )}
+                              </td>
+                            </tr>
+                          )
                         )
+                      ) : (
+                        <tr>
+                          <td className="text-center" colSpan={4}>
+                            No data found.
+                          </td>
+                        </tr>
                       )}
                     </tbody>
                   </table>

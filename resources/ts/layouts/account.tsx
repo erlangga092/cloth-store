@@ -1,6 +1,6 @@
 import { Sidebar } from "@/components/sidebar";
 import { AuthProps } from "@/types/auth";
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import React, { Suspense, useEffect, useState } from "react";
 import { NavDropdown } from "react-bootstrap";
 
@@ -37,9 +37,11 @@ const LayoutAccount = ({ children }: { children: React.ReactNode }) => {
     <div className="d-flex sb-sidenav-toggled" id="warapper">
       <div className="bg-sidebar" id="sidebar-wrapper">
         <div className="sidebar-heading bg-light text-center">
-          <img src="/assets/images/logo.png" width={23} />
-          <strong>Geek</strong>
-          <small>Store</small>
+          <Link href="/" style={{ color: "#fff", textDecoration: "none" }}>
+            <img src="/assets/images/logo.png" width={23} />
+            <strong>Geek</strong>
+            <small>Store</small>
+          </Link>
         </div>
         <Sidebar />
       </div>

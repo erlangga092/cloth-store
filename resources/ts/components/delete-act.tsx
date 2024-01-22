@@ -27,6 +27,15 @@ export function DeleteAct({ URL, id }: { URL: string; id: number }) {
               timer: DEFAULT_TIMER,
             });
           },
+          onError: function (err: unknown) {
+            const errMsg = err as { 0: string };
+            Swal.fire({
+              title: "Failed!",
+              text: errMsg[0],
+              icon: "error",
+              showConfirmButton: true,
+            });
+          },
         });
       }
     } catch (error) {

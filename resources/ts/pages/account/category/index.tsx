@@ -15,7 +15,7 @@ const AccountCategoryPage = ({
   return (
     <>
       <Head>
-        <title>Category</title>
+        <title>Category | Marketplace</title>
       </Head>
       <LayoutAccount>
         <div className="row mt-5">
@@ -66,41 +66,49 @@ const AccountCategoryPage = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {categories.data.map(
-                        (category: CategoryType, index: number) => (
-                          <tr key={index}>
-                            <td className="text-center">
-                              {++index +
-                                (categories.current_page - 1) *
-                                  categories.per_page}
-                            </td>
-                            <td>{category.name}</td>
-                            <td className="text-center">
-                              <img
-                                src={category.image}
-                                alt={category.name}
-                                className="rounded-3"
-                                height={35}
-                              />
-                            </td>
-                            <td className="text-center">
-                              {hasAnyPermission(["categories.edit"]) && (
-                                <Link
-                                  href={`/account/categories/${category.id}/edit`}
-                                  className="btn btn-primary btn-sm me-2"
-                                >
-                                  <i className="fa fa-pencil-alt"></i>
-                                </Link>
-                              )}
-                              {hasAnyPermission(["categories.delete"]) && (
-                                <DeleteAct
-                                  URL="/account/categories"
-                                  id={category.id}
+                      {categories.data.length ? (
+                        categories.data.map(
+                          (category: CategoryType, index: number) => (
+                            <tr key={index}>
+                              <td className="text-center">
+                                {++index +
+                                  (categories.current_page - 1) *
+                                    categories.per_page}
+                              </td>
+                              <td>{category.name}</td>
+                              <td className="text-center">
+                                <img
+                                  src={category.image}
+                                  alt={category.name}
+                                  className="rounded-3"
+                                  height={35}
                                 />
-                              )}
-                            </td>
-                          </tr>
+                              </td>
+                              <td className="text-center">
+                                {hasAnyPermission(["categories.edit"]) && (
+                                  <Link
+                                    href={`/account/categories/${category.id}/edit`}
+                                    className="btn btn-primary btn-sm me-2"
+                                  >
+                                    <i className="fa fa-pencil-alt"></i>
+                                  </Link>
+                                )}
+                                {hasAnyPermission(["categories.delete"]) && (
+                                  <DeleteAct
+                                    URL="/account/categories"
+                                    id={category.id}
+                                  />
+                                )}
+                              </td>
+                            </tr>
+                          )
                         )
+                      ) : (
+                        <tr>
+                          <td className="text-center" colSpan={4}>
+                            No data found.
+                          </td>
+                        </tr>
                       )}
                     </tbody>
                   </table>

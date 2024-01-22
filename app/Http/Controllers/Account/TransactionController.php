@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -30,5 +29,11 @@ class TransactionController extends Controller
 
     public function show($invoice)
     {
+        $transaction = Transaction::query()
+            ->with('transactionDetails.product', 'user', 'province', 'city')
+            ->where('invoice', $invoice)
+            ->first();
+
+        return inertia('account/transaction/show', compact('transaction'));
     }
 }

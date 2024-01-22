@@ -6,6 +6,8 @@ use App\Http\Controllers\Account\DashboardController;
 use App\Http\Controllers\Account\PermissionController;
 use App\Http\Controllers\Account\ProductController;
 use App\Http\Controllers\Account\RoleController;
+use App\Http\Controllers\Account\SliderController;
+use App\Http\Controllers\Account\TransactionController;
 use App\Http\Controllers\Account\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -71,7 +73,47 @@ Route::prefix('account')->group(function () {
             ->middleware('permission:categories.index|categories.create|categories.edit|categories.delete');
 
         // products
+        Route::post('/products/store_image_product', [\App\Http\Controllers\Account\ProductController::class, 'storeImageProduct'])
+            ->name('account.products.store_image_product');
+
+        Route::delete('/products/destroy_image_product', [ProductController::class, 'destroyImageProduct'])
+            ->name('account.products.destroy_image_product');
+
         Route::resource('/products', ProductController::class, ['as' => 'account'])
             ->middleware('permission:products.index|products.create|products.edit|products.delete');
+
+        // sliders
+        Route::resource('/sliders', SliderController::class, ['as' => 'account'])
+            ->middleware('permission:sliders.index|sliders.create|sliders.edit|sliders.delete');
+
+        // transactions
+        Route::get('transactions', [TransactionController::class, 'index'])->name('account.transactions.index')->middleware('permission:transactions.index');
+
+        // transaction show
+        Route::get('transactions/{invoice}', [TransactionController::class, 'show'])->name('account.transactions.show');
     });
 });
+
+Route::get('/categories', [\App\Http\Controllers\Web\CategoryController::class, 'index'])
+    ->name('web.categories.index');
+
+Route::get('/categories/{slug}', [\App\Http\Controllers\Web\CategoryController::class, 'show'])
+    ->name('web.categories.show');
+
+Route::get('/products', [\App\Http\Controllers\Web\ProductController::class, 'index'])
+    ->name('web.products.index');
+
+Route::get('/products/{slug}', [\App\Http\Controllers\Web\ProductController::class, 'show'])
+    ->name('web.products.show');
+
+Route::get('/carts', [\App\Http\Controllers\Web\CartController::class, 'index'])
+    ->name('web.carts.index')
+    ->middleware('auth');
+
+Route::post('/carts', [\App\Http\Controllers\Web\CartController::class, 'store'])
+    ->name('web.carts.store')
+    ->middleware('auth');
+
+Route::delete('/carts/{id}', [\App\Http\Controllers\Web\CartController::class, 'destroy'])
+    ->name('web.carts.destroy')
+    ->middleware('auth');

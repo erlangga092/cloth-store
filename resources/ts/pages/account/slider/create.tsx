@@ -3,18 +3,18 @@ import { Head, useForm } from "@inertiajs/react";
 import React, { FormEvent } from "react";
 import Swal from "sweetalert2";
 
-const AccounCategoryCreatePage = () => {
+const AccountSliderCreatePage = () => {
   const { data, setData, errors, processing, post } = useForm<{
-    name: string;
+    link: string;
     image: File | null;
   }>({
-    name: "",
+    link: "",
     image: null,
   });
 
   function submiCategory(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    post("/account/categories", {
+    post("/account/sliders", {
       onSuccess: () => {
         Swal.fire({
           title: "Success",
@@ -30,7 +30,7 @@ const AccounCategoryCreatePage = () => {
   return (
     <>
       <Head>
-        <title>New Category | Marketplace</title>
+        <title>Create Slider</title>
       </Head>
       <LayoutAccount>
         <div className="row mt-4">
@@ -38,7 +38,7 @@ const AccounCategoryCreatePage = () => {
             <div className="card border-0 rounded shadow-sm border-top-success">
               <div className="card-header">
                 <span className="fw-bold">
-                  <i className="fa fa-folder"></i> Add New Category
+                  <i className="fa fa-palette me-2"></i> Add New Slider
                 </span>
               </div>
 
@@ -62,18 +62,18 @@ const AccounCategoryCreatePage = () => {
                     )}
                     <div className="mb-3">
                       <label htmlFor="" className="form-label fw-bold">
-                        Name
+                        Color
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Enter your fullname..."
-                        value={data.name}
-                        onChange={(e) => setData("name", e.target.value)}
+                        placeholder="Enter image slider link..."
+                        value={data.link}
+                        onChange={(e) => setData("link", e.target.value)}
                       />
                     </div>
-                    {errors.name && (
-                      <div className="alert alert-danger">{errors.name}</div>
+                    {errors.link && (
+                      <div className="alert alert-danger">{errors.link}</div>
                     )}
                   </div>
                   <>
@@ -102,4 +102,4 @@ const AccounCategoryCreatePage = () => {
   );
 };
 
-export default AccounCategoryCreatePage;
+export default AccountSliderCreatePage;

@@ -2,16 +2,20 @@ import { DeleteAct } from "@/components/delete-act";
 import { Pagination } from "@/components/pagination";
 import { Search } from "@/components/search";
 import LayoutAccount from "@/layouts/account";
-import { ColorType, ColorWithPaginationType } from "@/types/color";
+import { SliderType, SliderWithPaginationType } from "@/types/slider";
 import { hasAnyPermission } from "@/utils/has-permission";
 import { Head, Link } from "@inertiajs/react";
 import React from "react";
 
-const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
+const AcccountSliderPage = ({
+  sliders,
+}: {
+  sliders: SliderWithPaginationType;
+}) => {
   return (
     <>
       <Head>
-        <title>Color | Marketplace</title>
+        <title>color</title>
       </Head>
       <LayoutAccount>
         <div className="row mt-5">
@@ -19,7 +23,7 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
             <div className="row">
               <div className="col-md-3 col-12 mb-2">
                 <Link
-                  href="/account/colors/create"
+                  href="/account/sliders/create"
                   className="btn btn-md btn-success border-0 shadow w-100"
                   type="button"
                 >
@@ -28,7 +32,7 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
                 </Link>
               </div>
               <div className="col-md-9">
-                <Search URL="/account/colors" />
+                <Search URL="/account/sliders" />
               </div>
             </div>
           </div>
@@ -39,7 +43,7 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
             <div className="card border rounded shadow-sm border-top-success">
               <div className="card-header">
                 <span className="fw-bold">
-                  <i className="fa fa-palette me-2"></i> Color
+                  <i className="fa fa-images me-2"></i> Image Slider
                 </span>
               </div>
               <div className="card-body">
@@ -51,10 +55,10 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
                           No
                         </th>
                         <th scope="col" style={{ width: "15%" }}>
-                          Name
+                          Image
                         </th>
                         <th scope="col" style={{ width: "15%" }}>
-                          Image
+                          Link
                         </th>
                         <th scope="col" style={{ width: "15%" }}>
                           Actions
@@ -62,34 +66,34 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {colors.data.length ? (
-                        colors.data.map((color: ColorType, index: number) => (
+                      {sliders.data.length ? (
+                        sliders.data.map((color: SliderType, index: number) => (
                           <tr key={index}>
                             <td className="text-center">
                               {++index +
-                                (colors.current_page - 1) * colors.per_page}
+                                (sliders.current_page - 1) * sliders.per_page}
                             </td>
-                            <td>{color.name}</td>
                             <td className="text-center">
                               <img
                                 src={color.image}
-                                alt={color.name}
+                                alt={color.link}
                                 className="rounded-3"
                                 height={35}
                               />
                             </td>
+                            <td className="text-center">{color.link}</td>
                             <td className="text-center">
-                              {hasAnyPermission(["colors.edit"]) && (
+                              {hasAnyPermission(["sliders.edit"]) && (
                                 <Link
-                                  href={`/account/colors/${color.id}/edit`}
+                                  href={`/account/sliders/${color.id}/edit`}
                                   className="btn btn-primary btn-sm me-2"
                                 >
                                   <i className="fa fa-pencil-alt"></i>
                                 </Link>
                               )}
-                              {hasAnyPermission(["colors.delete"]) && (
+                              {hasAnyPermission(["sliders.delete"]) && (
                                 <DeleteAct
-                                  URL="/account/colors"
+                                  URL="/account/sliders"
                                   id={color.id}
                                 />
                               )}
@@ -98,7 +102,7 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
                         ))
                       ) : (
                         <tr>
-                          <td className="text-center" colSpan={6}>
+                          <td colSpan={4} className="text-center">
                             No data found.
                           </td>
                         </tr>
@@ -107,7 +111,7 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
                   </table>
                 </div>
 
-                <Pagination links={colors.links} align="end" />
+                <Pagination links={sliders.links} align="end" />
               </div>
             </div>
           </div>
@@ -117,4 +121,4 @@ const AccountColorPage = ({ colors }: { colors: ColorWithPaginationType }) => {
   );
 };
 
-export default AccountColorPage;
+export default AcccountSliderPage;

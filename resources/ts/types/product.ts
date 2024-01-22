@@ -1,5 +1,7 @@
 import { CategoryType } from "./category";
 import { PaginationLinkType } from "./pagination";
+import { ProductImageWithPaginationType } from "./product-image";
+import { ProductSize } from "./product-size";
 
 export interface ProductType {
   id: number;
@@ -29,4 +31,12 @@ export interface ProductWithPaginationType {
   prev_page_url: string | null;
   to: number;
   total: number;
+}
+
+export interface ProductWithSizeType extends ProductType {
+  product_sizes: Array<ProductSize>;
+}
+
+export interface ProductWithImageAndPaginationType extends ProductType {
+  product_images: ProductImageWithPaginationType;
 }
